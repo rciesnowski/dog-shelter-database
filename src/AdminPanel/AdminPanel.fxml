@@ -1,37 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.Cursor?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="720.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AdminPanel.AdminPanel">
    <children>
-      <VBox alignment="CENTER" layoutX="329.0" layoutY="14.0" prefHeight="696.0" prefWidth="377.0" spacing="15.0" style="-fx-background-color: white; -fx-border-color: green;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="329.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
+      <VBox alignment="CENTER" layoutX="329.0" layoutY="14.0" prefHeight="696.0" prefWidth="377.0" spacing="15.0" style="-fx-background-color: lightyellow; -fx-border-color: orange;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="329.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
          <padding>
             <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
          </padding>
          <children>
             <Label prefHeight="17.0" prefWidth="355.0" text="Ostatnie logowania" />
-            <ListView fx:id="loglist" prefHeight="158.0" prefWidth="345.0" style="-fx-border-color: lightgreen; -fx-focus-color: green;" />
+            <ListView fx:id="loglist" prefHeight="125.0" prefWidth="345.0" style="-fx-border-color: orange; -fx-focus-color: blue;" />
             <Label prefHeight="17.0" prefWidth="342.0" text="Ostatnie darowizny" />
-            <ListView fx:id="darlist" prefHeight="81.0" prefWidth="345.0" style="-fx-border-color: lightgreen; -fx-focus-color: green;" />
-            <ListView fx:id="userlist" prefHeight="150.0" prefWidth="345.0" style="-fx-border-color: lightgreen; -fx-focus-color: green;" />
+            <ListView fx:id="darlist" prefHeight="125.0" prefWidth="345.0" style="-fx-border-color: orange; -fx-focus-color: blue;" />
+            <ListView fx:id="userlist" prefHeight="200.0" prefWidth="345.0" style="-fx-border-color: orange; -fx-focus-color: blue;" />
             <HBox fx:id="box" alignment="CENTER" spacing="2.5">
                <children>
-                  <Button fx:id="addbutton" mnemonicParsing="false" style="-fx-background-color: green;" text="Dodaj uzytkownika" textFill="WHITE">
+                  <Button fx:id="addbutton" mnemonicParsing="false" style="-fx-background-color: black;" text="Dodaj uzytkownika" textFill="WHITE">
                      <font>
-                        <Font name="Arial" size="12.0" />
+                        <Font name="Bodoni MT" size="15.0" />
                      </font>
                      <cursor>
                         <Cursor fx:constant="HAND" />
@@ -39,20 +30,19 @@
                   </Button>
                </children>
             </HBox>
-            <ListView fx:id="userlist2" prefHeight="150.0" prefWidth="345.0" style="-fx-border-color: lightgreen; -fx-focus-color: green;" />
-            <HBox fx:id="box1" alignment="CENTER" spacing="2.5">
+            <ListView fx:id="pieslist" prefHeight="200.0" prefWidth="345.0" style="-fx-border-color: orange; -fx-focus-color: blue;" />
+            <HBox fx:id="box2" alignment="CENTER" spacing="2.5">
                <children>
-                  <Button fx:id="addbutton1" mnemonicParsing="false" style="-fx-background-color: green;" text="Dodaj psa" textFill="WHITE">
+                  <Button fx:id="addbutton1" mnemonicParsing="false" style="-fx-background-color: black;" text="Dodaj psa" textFill="WHITE">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
                      <font>
-                        <Font name="Arial" size="12.0" />
+                        <Font name="Bodoni MT" size="15.0" />
                      </font>
                   </Button>
                </children>
             </HBox>
-            <Label text="Label" />
          </children>
       </VBox>
    </children>

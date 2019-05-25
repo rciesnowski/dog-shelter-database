@@ -1,7 +1,8 @@
 package AdminPanel;
-
 import Objects.Logowanie.Logowanie;
 import Objects.Logowanie.LogowanieController;
+import Objects.Pies.Pies;
+import Objects.Pies.PiesCellController;
 import Objects.User.User;
 import Objects.User.UserCellController;
 import javafx.collections.FXCollections;
@@ -17,23 +18,30 @@ import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.sql.*;
-
 public class AdminPanel{
-
     @FXML
     private ListView<Logowanie> loglist;
     @FXML
     private ListView<User> userlist;
     @FXML
+    private ListView<Pies> pieslist;
+    @FXML
     public HBox box;
     @FXML
+    public  HBox box2;
+    @FXML
     public Button addbutton;
+    @FXML
+    public Button addbutton1;
+
     private ObservableList<User> users;
     private ObservableList<Logowanie> logowania;
+    private ObservableList<Pies> psy;
 
     public AdminPanel(){
         users=FXCollections.observableArrayList();
         logowania=FXCollections.observableArrayList();
+        psy=FXCollections.observableArrayList();
     }
 
     private void ReloadList() throws ClassNotFoundException, SQLException{
@@ -56,7 +64,7 @@ public class AdminPanel{
         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
         Connection con=DriverManager.getConnection("jdbc:sqlserver://ERPE;database=bazaDanych", "adnub", "admin");
         Statement stm=con.createStatement();
-        ResultSet result=stm.executeQuery("select l.id, u.login, l.data from Logowanie as l inner join Uzytkownik as u on l.id_uzytkownik = u.id");
+        ResultSet result=stm.executeQuery("select l.id, l.data, u.login from Logowanie as l inner join Uzytkownik as u on l.id_uzytkownik = u.id order by 1 desc");
         while(result.next()){
             Logowanie newlog=new Logowanie(result.getString(1), result.getString(2), result.getString(3));
             logowania.add(newlog);
@@ -64,7 +72,22 @@ public class AdminPanel{
         con.close();
         loglist.setItems(logowania);
     }
-
+    private void ReloadPiesList() throws ClassNotFoundException, SQLException{
+        psy.clear();
+        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+        Connection con=DriverManager.getConnection("jdbc:sqlserver://ERPE;database=bazaDanych", "adnub", "admin");
+        Statement stm=con.createStatement();
+        ResultSet result=stm.executeQuery("select p.id, p.imie, r.nazwa_pl, p.is_lagodny, p.is_wege from Pies as p inner join Rasa as r on p.id_rasa = r.id");
+        while(result.next()){
+            boolean permL, permW;
+            permL=(result.getInt(4)==1);
+            permW=(result.getInt(5)==1);
+            Pies newpies=new Pies(result.getInt(1), result.getString(2), result.getString(3), permL, permW);
+            psy.add(newpies);
+        }
+        con.close();
+        pieslist.setItems(psy);
+    }
     private void initChanger(char mode, int id){
         box.getChildren().clear();
         TextField log=new TextField();
@@ -76,7 +99,7 @@ public class AdminPanel{
         pw.setPromptText("Haslo");
         pw.setPrefWidth(75);
         HBox adm=new HBox();
-        Text a=new Text("A");
+        Text a=new Text("admin");
         CheckBox admin=new CheckBox();
         adm.getChildren().addAll(a, admin);
         adm.setAlignment(Pos.CENTER);
@@ -157,14 +180,121 @@ public class AdminPanel{
             });
         }
     }
+    private void initPiesChanger(char mode, int id){
+        box2.getChildren().clear();
+        TextField imie=new TextField();
+        imie.setStyle("-fx-border-color: green");
+        imie.setPrefWidth(75);
+        imie.setPromptText("Imie");
+        TextField rasa=new TextField();
+        rasa.setStyle("-fx-border-color: green");
+        rasa.setPromptText("Rasa");
+        rasa.setPrefWidth(75);
+        HBox wyb=new HBox();
+        Text l=new Text("łagodny");
+        Text w=new Text("wege");
+        CheckBox lag=new CheckBox();
+        CheckBox weg=new CheckBox();
+        wyb.getChildren().addAll(l, lag, w, weg);
+        if(mode=='e'){
+            Button zmien2=new Button("Zmien");
+            zmien2.setTextFill(Paint.valueOf("white"));
+            zmien2.setStyle("-fx-background-color: green");
+            zmien2.setPrefWidth(75);
+            zmien2.setCursor(Cursor.HAND);
+            box2.getChildren().addAll(imie, rasa, wyb, zmien2);
+            zmien2.setOnAction(event -> {
+                imie.setStyle("-fx-border-color: green");
+                rasa.setStyle("-fx-border-color: green");
+                if(imie.getText().length()<2 || imie.getText().length()>8){
+                    imie.setStyle("-fx-border-color: red");
+                }
+                if(rasa.getText().length()<3){
+                    rasa.setStyle("-fx-border-color: red");
+                }
+                if(rasa.getText().length()>=3 && imie.getText().length()>=2 && imie.getText().length()<=8){
+                    try{
+                        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                        Connection con=DriverManager.getConnection("jdbc:sqlserver://ERPE;database=bazaDanych", "adnub", "admin");
+                        PreparedStatement stm=con.prepareStatement("update Pies set imie=?,is_wege=?,is_lagodny=? where id=?");
+                        stm.setInt(4, id);
+                        stm.setString(1, imie.getText());
+                        if(weg.isSelected()){
+                            stm.setInt(2, 1);
+                        }else{
+                            stm.setInt(2, 0);
+                        }
+                        if(lag.isSelected()){
+                            stm.setInt(3, 1);
+                        }else{
+                            stm.setInt(3, 0);
+                        }
+                        stm.executeUpdate();
+                        con.close();
+                        ReloadPiesList();
+                        box2.getChildren().clear();
+                        box2.getChildren().add(addbutton1);
+                    }catch(SQLException|ClassNotFoundException ignored){
+                    }
+                }
+            });
+        }else if(mode=='a'){
+            Button add=new Button("Dodaj");
+            add.setTextFill(Paint.valueOf("white"));
+            add.setStyle("-fx-background-color: green");
+            add.setPrefWidth(75);
+            add.setCursor(Cursor.HAND);
+            box2.getChildren().addAll(imie, rasa, l, lag, w, weg, add);
+            add.setOnAction(event -> {
+                imie.setStyle("-fx-border-color: green");
+                rasa.setStyle("-fx-border-color: green");
+                if(imie.getText().length()<2 || imie.getText().length()>8){
+                    imie.setStyle("-fx-border-color: red");
+                }
+                if(rasa.getText().length()<3){
+                    rasa.setStyle("-fx-border-color: red");
+                }
+                if(rasa.getText().length()>=3 && imie.getText().length()>=2 && imie.getText().length()<=8){
+                    try{
+                        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                        Connection con=DriverManager.getConnection("jdbc:sqlserver://ERPE;database=bazaDanych", "adnub", "admin");
+                        PreparedStatement stm=con.prepareStatement("insert into Pies(imie, is_lagodny, is_wege) values (?,?,?)");
+                        stm.setString(1, imie.getText());
+                        if(lag.isSelected()){
+                            stm.setInt(2, 1);
+                        }else{
+                            stm.setInt(2, 0);
+                        }
+                        if(weg.isSelected()){
+                            stm.setInt(3, 1);
+                        }else{
+                            stm.setInt(3, 0);
+                        }
+                        stm.executeUpdate();
+                        con.close();
+                        ReloadPiesList();
+                        box2.getChildren().clear();
+                        box2.getChildren().add(addbutton1);
+                    }catch(SQLException|ClassNotFoundException ignored){
+                    }
+                }
+            });
+        }
+    }
 
     private void Add(){
         initChanger('a', 0);
     }
 
+    private void AddPies(){
+        initPiesChanger('a', 0);
+    }
+
     public void initialize() throws SQLException, ClassNotFoundException{
         ReloadLogList();
         ReloadList();
+        ReloadPiesList();
+        addbutton1.setOnAction(event -> AddPies());
         addbutton.setOnAction(event -> Add());
         loglist.setCellFactory(lb -> new ListCell<Logowanie>() {
             private HBox graphic1;
@@ -193,6 +323,65 @@ public class AdminPanel{
                 }
             }
         });
+        pieslist.setCellFactory(lb -> new ListCell<Pies>() {
+            private HBox graphic2;
+            private PiesCellController controller2;
+
+            {
+                try{
+                    FXMLLoader loader2=new FXMLLoader(getClass().getResource("/Objects/Pies/PiesCell.fxml"));
+                    graphic2=loader2.load();
+                    controller2=loader2.getController();
+                }catch(IOException e){
+                    e.printStackTrace();
+                }
+            }
+            @Override
+            protected void updateItem(Pies pies, boolean empty){
+                super.updateItem(pies, empty);
+                if(empty){
+                    setGraphic(null);
+                }else{
+                    controller2.setImie(pies.getImie());
+                    controller2.setRasa(pies.getRasa());
+                    if(pies.getIs_Lagodny()){
+                        controller2.setIs_lagodny("/img/hear.gif");
+                    }else{
+                        controller2.setIs_lagodny("/img/dang.gif");
+                    }
+                    if(pies.getIs_wege()){
+                        controller2.setIs_wege("/img/broc.gif");
+                        System.out.println(pies.getIs_Lagodny());
+                    }else{
+                        controller2.setIs_wege("/img/meat.gif");
+                    }
+                    controller2.getDelbutton().setOnAction(event -> {
+                        try{
+                            Delete(pies.getId());
+                        }catch(SQLException|ClassNotFoundException ignored){
+                        }
+                    });
+                    controller2.getEditbutton().setOnAction(event -> Edit(pies.getId()));
+                    setGraphic(graphic2);
+                }
+            }
+
+            void Delete(int id) throws SQLException, ClassNotFoundException{
+                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                Connection con=DriverManager.getConnection("jdbc:sqlserver://ERPE;database=bazaDanych", "adnub", "admin");
+                PreparedStatement stm=con.prepareStatement("delete from Pies where id=?");
+                stm.setInt(1, id);
+                stm.executeUpdate();
+                con.close();
+                ReloadPiesList();
+            }
+
+            void Edit(int id){
+                initPiesChanger('e', id);
+            }
+        });
+
+
         userlist.setCellFactory(lb -> new ListCell<User>(){
             private HBox graphic;
             private UserCellController controller;
@@ -215,11 +404,7 @@ public class AdminPanel{
                 }else{
                     controller.setLogin(user.getLogin());
                     controller.setHaslo(user.getHaslo());
-                    if(user.isAdmin()){
-                        controller.setImage("/img/admin.png");
-                    }else{
-                        controller.setImage("/img/user.png");
-                    }
+                    if(user.isAdmin()) controller.setImage("/img/admin.png");
                     controller.getDelbutton().setOnAction(event -> {
                         try{
                             Delete(user.getId());
@@ -240,7 +425,6 @@ public class AdminPanel{
                 con.close();
                 ReloadList();
             }
-
             void Edit(int id){
                 initChanger('e', id);
             }
