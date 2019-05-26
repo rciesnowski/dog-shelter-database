@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="313.0" minHeight="-Infinity" minWidth="225.0" prefHeight="26.0" prefWidth="313.0" spacing="10.0" style="-fx-border-color: green; -fx-background-color: lightgreen;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Objects.Logowanie.LogowanieCtrl">
+<HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="313.0" minHeight="-Infinity" minWidth="225.0" prefHeight="26.0" prefWidth="313.0" spacing="10.0" style="-fx-border-color: #d2cfcb; -fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Objects.Logowanie.LogowanieCtrl">
     <padding>
         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
     </padding>

@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
 <?import javafx.geometry.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 
 <AnchorPane prefHeight="720.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserPanel.UserPanel">
     <children>
@@ -16,49 +13,24 @@
             <children>
             <Accordion prefHeight="256.0" prefWidth="377.0">
               <panes>
-                <TitledPane animated="false" maxWidth="345.0" prefHeight="206.0" prefWidth="310.0" text="Ostatnie logowania">
+                <TitledPane animated="false" maxWidth="345.0" prefHeight="206.0" prefWidth="310.0" text="Twoje ostatnie logowania">
                   <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                           <children>
-                                  <ListView fx:id="loglist" prefHeight="180.0" prefWidth="377.0" style="-fx-border-color: orange; -fx-focus-color: blue;" />
-                           </children>
-                        </AnchorPane>
+                    <ListView fx:id="loglist" prefHeight="180.0" prefWidth="377.0" style="-fx-border-color: orange; -fx-focus-color: blue;" />
                   </content>
                 </TitledPane>
                 <TitledPane animated="false" text="Psy">
                   <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                           <children>
-                              <ListView fx:id="pieslist" prefHeight="180.0" prefWidth="377.0" style="-fx-border-color: orange; -fx-focus-color: blue;" />
-                           </children>
-                        </AnchorPane>
+                      <ListView fx:id="pieslist" prefHeight="180.0" prefWidth="377.0" style="-fx-border-color: orange; -fx-focus-color: blue;" />
                   </content>
                 </TitledPane>
-                <TitledPane animated="false" text="Darowizny">
+                <TitledPane animated="false" text="Twoje darowizny">
                   <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                           <children>
-                              <ListView fx:id="darlist" prefHeight="180.0" prefWidth="377.0" style="-fx-border-color: orange; -fx-focus-color: blue;" />
-                           </children>
-                        </AnchorPane>
+                        <ListView fx:id="darlist" prefHeight="180.0" prefWidth="377.0" style="-fx-border-color: orange; -fx-focus-color: blue;" />
                   </content>
                 </TitledPane>
-                <TitledPane animated="false" layoutX="10.0" layoutY="60.0" text="Rezerwacje">
+                <TitledPane animated="false" text="Rasy">
                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                            <children>
-                                <ListView fx:id="relist" prefHeight="180.0" prefWidth="377.0" style="-fx-border-color: orange; -fx-focus-color: blue;" />
-                           </children>
-                        </AnchorPane>
-                    </content>
-                </TitledPane>
-                <TitledPane animated="false" layoutX="10.0" layoutY="60.0" text="Rasy">
-                    <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                            <children>
-                                <ListView fx:id="raslist" prefHeight="180.0" prefWidth="377.0" style="-fx-border-color: orange; -fx-focus-color: blue;" />
-                            </children>
-                        </AnchorPane>
+                        <ListView fx:id="raslist" prefHeight="180.0" prefWidth="377.0" style="-fx-border-color: orange; -fx-focus-color: blue;" />
                     </content>
                 </TitledPane>
               </panes>

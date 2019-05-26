@@ -5,6 +5,8 @@ import Objects.Logowanie.Logowanie;
 import Objects.Logowanie.LogowanieCtrl;
 import Objects.Pies.Pies;
 import Objects.Pies.PiesCtrlU;
+import Objects.Rasa.Rasa;
+import Objects.Rasa.RasaCtrl;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -21,18 +23,20 @@ public class UserPanel{
     private ListView<Pies> pieslist;
     @FXML
     private ListView<Dar> darlist;
-    @FXML
-    //private ListView<Rezerw> relist;
     //@FXML
-    //private ListView<Objects.Rasa> raslist;
+    //private ListView<Rezerw> relist;
+    @FXML
+    private ListView<Rasa> raslist;
     private ObservableList<Logowanie> logowania;
     private ObservableList<Pies> psy;
     private ObservableList<Dar> dary;
+    private ObservableList<Rasa> rasy;
     //private ObservableList<Rezerw> rezerwacje;
     public UserPanel(){
         logowania=FXCollections.observableArrayList();
         psy=FXCollections.observableArrayList();
         dary=FXCollections.observableArrayList();
+        rasy=FXCollections.observableArrayList();
     }
     private void getLogList() throws ClassNotFoundException, SQLException{
         logowania.clear();
@@ -76,10 +80,25 @@ public class UserPanel{
         con.close();
         darlist.setItems(dary);
     }
+    private void getRasList() throws ClassNotFoundException, SQLException{
+        rasy.clear();
+        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+        Connection con=DriverManager.getConnection("jdbc:sqlserver://ERPE;database=bazaDanych", "adnub", "admin");
+        Statement stm=con.createStatement();
+        ResultSet result=stm.executeQuery("select id, nazwa_pl, nazwa_ang from Rasa");
+        while(result.next()){
+            Rasa newrasa=new Rasa(result.getString(1), result.getString(2), result.getString(3));
+            rasy.add(newrasa);
+        }
+        con.close();
+        raslist.setItems(rasy);
+    }
+
     public void initialize() throws SQLException, ClassNotFoundException{
         getLogList();
         getPiesList();
         getDarList();
+        getRasList();
         loglist.setCellFactory(lb -> new ListCell<Logowanie>() {
             private HBox graphic1;
             private LogowanieCtrl controller1;
@@ -165,6 +184,31 @@ public class UserPanel{
                     controller3.setData(dar.getData());
                     controller3.setKwota(dar.getKwota());
                     setGraphic(graphic3);
+                }
+            }
+        });
+        raslist.setCellFactory(lb -> new ListCell<Rasa>() {
+            private HBox graphic4;
+            private RasaCtrl controller4;
+            {
+                try{
+                    FXMLLoader loader4=new FXMLLoader(getClass().getResource("/Objects/Rasa/Rasa.fxml"));
+                    graphic4=loader4.load();
+                    controller4=loader4.getController();
+                }catch(IOException e){
+                    e.printStackTrace();
+                }
+            }
+            @Override
+            protected void updateItem(Rasa rasa, boolean empty){
+                super.updateItem(rasa, empty);
+                if(empty){
+                    setGraphic(null);
+                }else{
+                    controller4.setId(rasa.getId());
+                    controller4.setPol(rasa.getPol());
+                    controller4.setAng(rasa.getAng());
+                    setGraphic(graphic4);
                 }
             }
         });
