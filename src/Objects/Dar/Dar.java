@@ -1,14 +1,16 @@
-package Objects.Logowanie;
+package Objects.Dar;
 
-public class Logowanie{
+public class Dar{
     private String id;
-    private String login;
     private String data;
+    private String login;
+    private float kwota;
 
-    public Logowanie(String id, String data, String login){
+    public Dar(String id, String data, String login, float kwota){
         setId(id);
         setLogin(login);
         setData(data);
+        setKwota(kwota);
     }
 
     public String getId(){
@@ -33,5 +35,13 @@ public class Logowanie{
 
     private void setData(String data){
         this.data=data;
+    }
+
+    public float getKwota() {
+        return kwota;
+    }
+
+    private void setKwota(float kwota) {
+        this.kwota=kwota;
     }
 }

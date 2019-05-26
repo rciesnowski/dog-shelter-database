@@ -1,15 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.Cursor?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane></AnchorPane>
+<AnchorPane prefHeight="720.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserPanel.UserPanel">
+    <children>
+        <VBox alignment="TOP_CENTER" layoutX="329.0" layoutY="14.0" prefHeight="696.0" prefWidth="377.0" spacing="15.0" style="-fx-background-color: lightyellow; -fx-border-color: orange;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="329.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
+            <padding>
+                <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+            </padding>
+            <children>
+            <Accordion prefHeight="256.0" prefWidth="377.0">
+              <panes>
+                <TitledPane animated="false" maxWidth="345.0" prefHeight="206.0" prefWidth="310.0" text="Ostatnie logowania">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                                  <ListView fx:id="loglist" prefHeight="180.0" prefWidth="377.0" style="-fx-border-color: orange; -fx-focus-color: blue;" />
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </TitledPane>
+                <TitledPane animated="false" text="Psy">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <ListView fx:id="pieslist" prefHeight="180.0" prefWidth="377.0" style="-fx-border-color: orange; -fx-focus-color: blue;" />
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </TitledPane>
+                <TitledPane animated="false" text="Darowizny">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <ListView fx:id="darlist" prefHeight="180.0" prefWidth="377.0" style="-fx-border-color: orange; -fx-focus-color: blue;" />
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </TitledPane>
+                <TitledPane animated="false" layoutX="10.0" layoutY="60.0" text="Rezerwacje">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                            <children>
+                                <ListView fx:id="relist" prefHeight="180.0" prefWidth="377.0" style="-fx-border-color: orange; -fx-focus-color: blue;" />
+                           </children>
+                        </AnchorPane>
+                    </content>
+                </TitledPane>
+                <TitledPane animated="false" layoutX="10.0" layoutY="60.0" text="Rasy">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                            <children>
+                                <ListView fx:id="raslist" prefHeight="180.0" prefWidth="377.0" style="-fx-border-color: orange; -fx-focus-color: blue;" />
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </TitledPane>
+              </panes>
+            </Accordion>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="313.0" minHeight="-Infinity" minWidth="225.0" prefHeight="36.0" prefWidth="313.0" spacing="10.0" style="-fx-border-color: brown; -fx-background-color: pink;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Objects.Pies.PiesCtrl">
+   <padding>
+      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+   </padding>
+   <children>
+      <Text fx:id="imie" strokeType="OUTSIDE" strokeWidth="0.0" text="123456">
+         <font>
+            <Font name="Arial Bold" size="12.0" />
+         </font>
+      </Text>
+      <Text fx:id="rasa" strokeType="OUTSIDE" strokeWidth="0.0" text="123456">
+         <font>
+            <Font name="Arial Italic" size="12.0" />
+         </font>
+      </Text>
+      <ImageView fx:id="is_lagodny" fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="is_wege" fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" />
+      <Button fx:id="editbutton" mnemonicParsing="false" style="-fx-border-color: black; -fx-background-color: yellow;" text="Edytuj">
+         <font>
+            <Font size="10.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button fx:id="delbutton" mnemonicParsing="false" style="-fx-border-color: black; -fx-background-color: red;" text="Usuń" textFill="WHITE">
+         <font>
+            <Font size="10.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+   </children>
+</HBox>

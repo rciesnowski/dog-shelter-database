@@ -18,9 +18,9 @@
             <Label prefHeight="17.0" prefWidth="342.0" text="Ostatnie darowizny" />
             <ListView fx:id="darlist" prefHeight="125.0" prefWidth="345.0" style="-fx-border-color: orange; -fx-focus-color: blue;" />
             <ListView fx:id="userlist" prefHeight="200.0" prefWidth="345.0" style="-fx-border-color: orange; -fx-focus-color: blue;" />
-            <HBox fx:id="box" alignment="CENTER" spacing="2.5">
+            <HBox fx:id="boxUser" alignment="CENTER" spacing="2.5">
                <children>
-                  <Button fx:id="addbutton" mnemonicParsing="false" style="-fx-background-color: black;" text="Dodaj uzytkownika" textFill="WHITE">
+                  <Button fx:id="addUser" mnemonicParsing="false" style="-fx-background-color: black;" text="Dodaj uzytkownika" textFill="WHITE">
                      <font>
                         <Font name="Bodoni MT" size="15.0" />
                      </font>
@@ -31,9 +31,9 @@
                </children>
             </HBox>
             <ListView fx:id="pieslist" prefHeight="200.0" prefWidth="345.0" style="-fx-border-color: orange; -fx-focus-color: blue;" />
-            <HBox fx:id="box2" alignment="CENTER" spacing="2.5">
+            <HBox fx:id="boxPies" alignment="CENTER" spacing="2.5">
                <children>
-                  <Button fx:id="addbutton1" mnemonicParsing="false" style="-fx-background-color: black;" text="Dodaj psa" textFill="WHITE">
+                  <Button fx:id="addPies" mnemonicParsing="false" style="-fx-background-color: black;" text="Dodaj psa" textFill="WHITE">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>

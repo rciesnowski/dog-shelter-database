@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="313.0" minHeight="-Infinity" minWidth="313.0" prefHeight="36.0" prefWidth="313.0" spacing="10.0" style="-fx-border-color: blue; -fx-background-color: lightblue;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Objects.User.UserCtrl">
+   <padding>
+      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+   </padding>
+   <children>
+      <Text fx:id="login" strokeType="OUTSIDE" strokeWidth="0.0" text="123456" HBox.hgrow="ALWAYS">
+         <font>
+            <Font name="Arial Bold" size="12.0" />
+         </font>
+      </Text>
+      <Text fx:id="haslo" strokeType="OUTSIDE" strokeWidth="0.0" text="123456">
+         <font>
+            <Font name="Arial Italic" size="12.0" />
+         </font>
+      </Text>
+      <ImageView fx:id="image" fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="NEVER" />
+      <Button fx:id="editbutton" alignment="CENTER_RIGHT" mnemonicParsing="false" style="-fx-border-color: black; -fx-background-color: yellow;" text="Edytuj">
+         <font>
+            <Font name="Arial" size="10.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button fx:id="delbutton" alignment="CENTER_RIGHT" mnemonicParsing="false" style="-fx-border-color: black; -fx-background-color: red;" text="Usuń" textFill="WHITE">
+         <font>
+            <Font name="Arial" size="10.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+   </children>
+</HBox>
