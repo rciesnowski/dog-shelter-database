@@ -23,27 +23,28 @@ public class UserPanel{
     private ListView<Pies> pieslist;
     @FXML
     private ListView<Dar> darlist;
-    //@FXML
-    //private ListView<Rezerw> relist;
+    @FXML
+    private ListView<Pies> starlist;
     @FXML
     private ListView<Rasa> raslist;
     private ObservableList<Logowanie> logowania;
     private ObservableList<Pies> psy;
     private ObservableList<Dar> dary;
     private ObservableList<Rasa> rasy;
-    //private ObservableList<Rezerw> rezerwacje;
+    private ObservableList<Pies> stare;
     public UserPanel(){
         logowania=FXCollections.observableArrayList();
         psy=FXCollections.observableArrayList();
         dary=FXCollections.observableArrayList();
         rasy=FXCollections.observableArrayList();
+        stare=FXCollections.observableArrayList();
     }
     private void getLogList() throws ClassNotFoundException, SQLException{
         logowania.clear();
         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
         Connection con=DriverManager.getConnection("jdbc:sqlserver://ERPE;database=bazaDanych", "adnub", "admin");
         Statement stm=con.createStatement();
-        ResultSet result=stm.executeQuery("select l.id, l.data, u.login from Logowanie as l inner join Uzytkownik as u on l.id_uzytkownik = u.id where l.id_uzytkownik=(select top 1 u2.id from Logowanie as l2 inner join Uzytkownik u2 on l2.id_uzytkownik = u2.id order by l2.id desc) order by 1 desc");
+        ResultSet result=stm.executeQuery("exec proc1");
         while(result.next()){
             Logowanie newlog=new Logowanie(result.getString(1), result.getString(2), result.getString(3));
             logowania.add(newlog);
@@ -66,6 +67,22 @@ public class UserPanel{
         }
         con.close();
         pieslist.setItems(psy);
+    }
+    private void getStarList() throws ClassNotFoundException, SQLException{
+        stare.clear();
+        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+        Connection con=DriverManager.getConnection("jdbc:sqlserver://ERPE;database=bazaDanych", "adnub", "admin");
+        Statement stm=con.createStatement();
+        ResultSet result=stm.executeQuery("select p.id, p.imie, r.nazwa_pl, p.isLagodny, p.isWege from Archiwum as p inner join Rasa as r on p.id_rasa = r.id");
+        while(result.next()){
+            boolean permL, permW;
+            permL=(result.getInt(4)==1);
+            permW=(result.getInt(5)==1);
+            Pies newstar=new Pies(result.getInt(1), result.getString(2), result.getString(3), permL, permW);
+            stare.add(newstar);
+        }
+        con.close();
+        starlist.setItems(stare);
     }
     private void getDarList() throws ClassNotFoundException, SQLException{
         dary.clear();
@@ -99,6 +116,7 @@ public class UserPanel{
         getPiesList();
         getDarList();
         getRasList();
+        getStarList();
         loglist.setCellFactory(lb -> new ListCell<Logowanie>() {
             private HBox graphic1;
             private LogowanieCtrl controller1;
@@ -126,6 +144,42 @@ public class UserPanel{
             }
         });
         pieslist.setCellFactory(lb -> new ListCell<Pies>() {
+            private HBox graphic2;
+            private PiesCtrlU controller2;
+            {
+                try {
+                    FXMLLoader loader2 = new FXMLLoader(getClass().getResource("/Objects/Pies/PiesU.fxml"));
+                    graphic2 = loader2.load();
+                    controller2 = loader2.getController();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            protected void updateItem(Pies pies, boolean empty) {
+                super.updateItem(pies, empty);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    controller2.setImie(pies.getImie());
+                    controller2.setRasa(pies.getRasa());
+                    if (pies.getIs_Lagodny()) {
+                        controller2.setIs_lagodny("/img/hear.gif");
+                    } else {
+                        controller2.setIs_lagodny("/img/dang.gif");
+                    }
+                    if (pies.getIs_wege()) {
+                        controller2.setIs_wege("/img/broc.gif");
+                        System.out.println(pies.getIs_Lagodny());
+                    } else {
+                        controller2.setIs_wege("/img/meat.gif");
+                    }
+                    setGraphic(graphic2);
+                }
+            }
+        });
+        starlist.setCellFactory(lb -> new ListCell<Pies>() {
             private HBox graphic2;
             private PiesCtrlU controller2;
             {
